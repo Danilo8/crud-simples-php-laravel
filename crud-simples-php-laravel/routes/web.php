@@ -13,5 +13,9 @@
 
 Route::get('/', 'AgendaController@index');
 Route::get('/cadastro', 'AgendaController@create');
+Route::get('/view/{id}', 'AgendaController@show');
+Route::get('/editar/{id}', 'AgendaController@edit');
 
 Route::post('/store', 'AgendaController@store');
+Route::put('/editar/{id}', 'AgendaController@update');
+Route::delete('/deletar/{id}', 'AgendaController@destroy');

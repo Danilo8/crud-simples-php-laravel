@@ -48,7 +48,8 @@ class AgendaController extends Controller
      */
     public function show($id)
     {
-        //
+        $contato = Agenda::findOrFail($id);
+        return view('view', compact('contato'));
     }
 
     /**
@@ -59,7 +60,8 @@ class AgendaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contato = Agenda::findOrFail($id);
+        return view('editar', compact('contato'));
     }
 
     /**
@@ -71,7 +73,10 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $contato = $request->all();
+        $id = Agenda::findOrFail($id);
+        $id->update($contato);
+        return redirect('/')->with(['success' => 'Contato editado com sucesso!']);
     }
 
     /**
@@ -82,6 +87,8 @@ class AgendaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contato = Agenda::findOrFail($id);
+        $contato->delete($id);
+        return redirect('/')->with(['success' => 'Contato excluido com sucesso!']);
     }
 }

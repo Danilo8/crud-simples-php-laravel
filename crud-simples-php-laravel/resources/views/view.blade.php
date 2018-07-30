@@ -16,17 +16,10 @@
 
         <!--Add icon library-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <!--cdn sweetalert2-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.25.0/sweetalert2.all.js"></script>
     </head>
     <style>
         .nav-link.active{
             border-bottom: 4px solid white;
-        }
-        .table tbody td{
-            padding-top: 10px;
-            padding-bottom: 0;
         }
     </style>
     <body>
@@ -43,74 +36,38 @@
             </button>
             <div class="collapse navbar-collapse nav justify-content-end mr-5" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active text-white" href="{{url('/')}}">Agenda <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link text-white" href="{{url('/')}}">Agenda <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link text-white" href="{{url('/cadastro')}}">Cadastrar Contato</a>
                 </div>
             </div>
         </nav>
-
-        @if(session('success'))
-            <script type='text/javascript'>
-                swal({
-                    type: 'success',
-                    showConfirmButton: false,
-                    title: '{{session("success")}}',
-                    timer: 2000,
-                })
-            </script>
-        @endif
-
+        
         <!--Div que vai conter a Tabela-->
         <div class="container">
-            <h1 class="text-center mt-3">Agenda</h1>
-            
-            <!--Tabela-->
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <h5 class="ml-3 mb-0 pt-1">Contatos Cadastrados</h5>
-                        <button type="button" class="btn btn-success ml-5" onclick="window.location='{{url('/cadastro')}}'">
-                            <i class="fa fa-plus"></i>
-                            Adicionar Novo Contato
-                        </button>
-                    </div>
+            <h1 class="text-center mt-3">Vizualizar Contato</h1>
+            <a href="{{url('/')}}" class="btn btn-dark">
+                <i class="fa fa-angle-double-left"></i> Ver Todos os Contatos
+            </a>
+            <div style="margin-left: 25%;margin-right: 25%;margin-top: 50px">
+                {{csrf_field()}}
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input readonly type="text" class="form-control" id="name" name="name" placeholder="Nome" value="{{$contato->name}}">
                 </div>
-                <div class="card-body p-0">
-                    <table style="margin-bottom: 0" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Telefone</th>
-                                <th scope="col">Email</th>
-                                <th style="width: 30%" scope="col">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($contatos as $contato)
-                                <tr>
-                                    <td>{{$contato->id}}</td>
-                                    <td>{{$contato->name}}</td>
-                                    <td>{{$contato->phone}}</td>
-                                    <td>{{$contato->email}}</td>
-                                    <td>
-                                        <button onclick="window.location='{{url('/view', $contato->id)}}'" class="btn btn-success">
-                                            <i class="fa fa-user"></i>
-                                            Vizualizar
-                                        </button>
-                                        <button onclick="window.location='{{url('/editar', $contato->id)}}'" class="btn btn-primary">
-                                            <i class="fa fa-edit"></i>
-                                            Editar
-                                        </button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" data-id="{{$contato->id}}" data-name="{{$contato->name}}">
-                                            <i class="fa fa-remove"></i>
-                                            Excluir
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="form-group">
+                    <label for="phone">Telefone:</label>
+                    <input readonly type="text" class="form-control" id="phone" name="phone" placeholder="Telefone" value="{{$contato->phone}}">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input readonly type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{$contato->email}}">
+                </div>
+                <div class="text-center">
+                    <a href="{{url('/editar', $contato->id)}}" class="btn btn-lg btn-success">Editar esse Contato</a>
+                    ou
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" data-id="{{$contato->id}}" data-name="{{$contato->name}}">
+                        Deletar esse Contato
+                    </button>
                 </div>
             </div>
         </div>
