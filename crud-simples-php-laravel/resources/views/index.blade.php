@@ -24,6 +24,10 @@
         .nav-link.active{
             border-bottom: 4px solid white;
         }
+        .table tbody td{
+            padding-top: 10px;
+            padding-bottom: 0;
+        }
     </style>
     <body>
         <!--Barra de Navegação-->
@@ -44,6 +48,17 @@
                 </div>
             </div>
         </nav>
+
+        @if(session('success'))
+            <script type='text/javascript'>
+                swal({
+                    type: 'success',
+                    showConfirmButton: false,
+                    title: '{{session("success")}}',
+                    timer: 2000,
+                })
+            </script>
+        @endif
         
         <!--Div que vai conter a Tabela-->
         <div class="container">
@@ -60,7 +75,7 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table">
+                    <table style="margin-bottom: 0" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -71,7 +86,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            @foreach($contatos as $contato)
+                                <tr>
+                                    <td>{{$contato->id}}</td>
+                                    <td>{{$contato->name}}</td>
+                                    <td>{{$contato->phone}}</td>
+                                    <td>{{$contato->email}}</td>
+                                    <td>
+                                        <button class=" btn btn-primary">
+                                            <i class="fa fa-edit"></i>
+                                            Editar
+                                        </button>
+                                        <button class=" btn btn-danger">
+                                            <i class="fa fa-remove"></i>
+                                            Excluir
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -41,17 +41,6 @@
                 </div>
             </div>
         </nav>
-
-        @if(session('success'))
-            <script type='text/javascript'>
-                swal({
-                    type: 'success',
-                    showConfirmButton: false,
-                    title: {{session('success')}},
-                    timer: 2000,
-                })
-            </script>
-        @endif
         
         <!--Div que vai conter a Tabela-->
         <div class="container">

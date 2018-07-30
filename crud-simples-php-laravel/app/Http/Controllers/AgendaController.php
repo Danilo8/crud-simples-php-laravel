@@ -14,7 +14,8 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $contatos = Agenda::all();
+        return view('index', compact('contatos'));
     }
 
     /**
