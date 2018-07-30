@@ -12,3 +12,6 @@
 */
 
 Route::get('/', 'AgendaController@index');
+Route::get('/cadastro', 'AgendaController@create');
+
+Route::post('/store', 'AgendaController@store');

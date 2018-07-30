@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Agenda;
 
 class AgendaController extends Controller
 {
@@ -23,7 +24,7 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        //
+        return view('cadastro');
     }
 
     /**
@@ -34,7 +35,8 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Agenda::create($request->all());
+        return redirect('/')->with(['success' => 'Contato cadastrado com sucesso!']);
     }
 
     /**

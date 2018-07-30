@@ -16,9 +16,6 @@
 
         <!--Add icon library-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <!--cdn sweetalert2-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.25.0/sweetalert2.all.js"></script>
     </head>
     <style>
         .nav-link.active{
@@ -39,42 +36,45 @@
             </button>
             <div class="collapse navbar-collapse nav justify-content-end mr-5" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active text-white" href="{{url('/')}}">Agenda <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link text-white" href="{{url('/cadastro')}}">Cadastrar Contato</a>
+                    <a class="nav-item nav-link text-white" href="{{url('/')}}">Agenda <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active text-white" href="{{url('/cadastro')}}">Cadastrar Contato</a>
                 </div>
             </div>
         </nav>
+
+        @if(session('success'))
+            <script type='text/javascript'>
+                swal({
+                    type: 'success',
+                    showConfirmButton: false,
+                    title: {{session('success')}},
+                    timer: 2000,
+                })
+            </script>
+        @endif
         
         <!--Div que vai conter a Tabela-->
         <div class="container">
-            <h1 class="text-center mt-3">Agenda</h1>
-            
-            <!--Tabela-->
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <h5 class="ml-3 mb-0 pt-1">Contatos Cadastrados</h5>
-                        <button type="button" class="btn btn-success ml-5" onclick="window.location='{{url('/cadastro')}}'">
-                            Adicionar Novo Contato
-                        </button>
+            <h1 class="text-center mt-3">Cadastrar Contato</h1>
+            <div style="margin-left: 25%;margin-right: 25%;margin-top: 50px">
+                <form action="{{url('/store')}}" method="post">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                        <label for="name">Nome:</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Nome">
                     </div>
-                </div>
-                <div class="card-body p-0">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Telefone</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone:</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefone">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block btn-lg btn-success">Cadastrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </body>
